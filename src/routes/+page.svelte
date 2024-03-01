@@ -1,5 +1,6 @@
 <script>
-	import Arbeid from '$lib/components/arbeid/Arbeid.svelte';
+	import Arbeid from '$lib/components/Arbeid/Arbeid.svelte';
+	import Ferdigheter from '$lib/components/Ferdigheter/Ferdigheter.svelte';
 </script>
 
 <p>
@@ -9,8 +10,10 @@
 
 <Arbeid />
 
+<Ferdigheter />
+
 <style>
 	p {
-		max-width: 16rem;
+		max-width: calc(16rem + 4vw);
 	}
 </style>

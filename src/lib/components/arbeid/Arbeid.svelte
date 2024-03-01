@@ -33,9 +33,3 @@
 		<Prosjekt {...prosjekt} />
 	{/each}
 </section>
-
-<style>
-	section {
-		margin-top: var(--spacing-loose);
-	}
-</style>

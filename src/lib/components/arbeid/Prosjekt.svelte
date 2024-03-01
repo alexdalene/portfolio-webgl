@@ -86,15 +86,17 @@
 		}
 
 		& p {
-			grid-column: 2 / span 2;
+			grid-column: 1 / span 2;
 		}
 
 		& h3 {
-			grid-column: 5 / span 4;
+			grid-column: 4 / span 4;
 		}
 
 		& a {
-			grid-column: 11 / span 2;
+			grid-column: 12 / span 2;
+			width: min-content;
+			white-space: nowrap;
 			display: flex;
 			align-items: center;
 			gap: var(--spacing-compact);

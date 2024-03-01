@@ -85,7 +85,7 @@
 		--spacing-compact: 0.625rem; /* 10px */
 		--spacing-fit: 0.3125rem; /* 5px */
 
-		--text-default: clamp(0.75rem, 2vw, 1rem);
+		--text-default: clamp(0.75rem, 2vw, 1.25rem);
 		--text-large: clamp(1rem, 2vw, 1.25rem);
 	}
 
@@ -116,6 +116,11 @@
 		overflow-x: hidden;
 		width: 100%;
 		margin-block: var(--spacing-default);
+
+		& svg {
+			height: fit-content;
+			width: 140%;
+		}
 	}
 
 	header {

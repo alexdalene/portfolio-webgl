@@ -21,6 +21,7 @@
 
 <style>
 	h2 {
+		margin-top: var(--spacing-loose);
 		margin-bottom: var(--spacing-tight);
 		opacity: 0.6;
 
