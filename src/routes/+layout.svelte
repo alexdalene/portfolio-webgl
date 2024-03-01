@@ -9,7 +9,7 @@
 	</nav>
 </header>
 
-<div id="name">
+<div id="name" focusable="false" aria-hidden="true">
 	<svg
 		width="1665"
 		height="255"
@@ -79,6 +79,7 @@
 		--padding-body: clamp(0.625rem, 2vw, 2.5rem);
 
 		--spacing-loose: 7.5rem; /* 120px */
+		--spacing-wide: 5rem; /* 80px */
 		--spacing-default: 2.5rem; /* 40px */
 		--spacing-tight: 1.25rem; /* 20px */
 		--spacing-compact: 0.625rem; /* 10px */
@@ -104,6 +105,11 @@
 		text-rendering: optimizeLegibility;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
+
+		& ::selection {
+			background-color: var(--color-text);
+			color: var(--color-background);
+		}
 	}
 
 	#name {
