@@ -1,2 +1,10 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<p>
+	Mitt navn er Alex Dalene og jeg er en <span role="heading" aria-level="1">kreativ utvikler</span> spesialisert
+	i brukeropplevelse og design.
+</p>
+
+<style>
+	p {
+		max-width: 16rem;
+	}
+</style>
