@@ -27,7 +27,7 @@
 	];
 </script>
 
-<section>
+<section id="ferdigheter">
 	<Heading title="Ferdigheter" />
 
 	<ul>
@@ -38,6 +38,10 @@
 </section>
 
 <style>
+	section {
+		grid-column: 1 / span 3;
+	}
+
 	ul {
 		display: flex;
 		flex-wrap: wrap;

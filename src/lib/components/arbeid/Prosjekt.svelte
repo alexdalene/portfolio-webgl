@@ -7,7 +7,7 @@
 
 	onMount(() => {
 		// Select all articles
-		const articles = document.querySelectorAll('article');
+		const articles = document.querySelectorAll('.prosjekt');
 
 		// Loop through all articles
 		articles.forEach((article) => {
@@ -32,12 +32,12 @@
 	});
 </script>
 
-<article>
+<article class="prosjekt">
 	<p>{type}</p>
 	<h3>{client}</h3>
 
 	<a {href} target="_blank">
-		Se live
+		<span class="link">[ LIVE ]</span>
 		<svg
 			width="16"
 			height="16"
@@ -68,7 +68,7 @@
 </article>
 
 <style>
-	article {
+	.prosjekt {
 		position: relative;
 		display: grid;
 		grid-template-columns: repeat(12, 1fr);
