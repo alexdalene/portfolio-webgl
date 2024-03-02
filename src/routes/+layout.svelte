@@ -51,8 +51,6 @@
 				const link = button.querySelector('.link');
 				const target = '#' + link.dataset.link;
 
-				console.log(target);
-
 				gsap.to(window, {
 					duration: 1,
 					scrollTo: {
