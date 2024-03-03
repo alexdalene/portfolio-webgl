@@ -196,6 +196,7 @@
 
 <style>
 	canvas {
+		background-color: #7c7d7a97;
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -206,21 +207,14 @@
 	.prosjekt {
 		display: grid;
 		grid-template-columns: repeat(12, 1fr);
-		transition: opacity 200ms ease-in-out;
 		z-index: 2;
 		position: relative;
-		transition: all 200ms ease-in-out;
+		transition: all 400ms ease-in-out;
 
 		width: 100%;
 		padding-block: var(--spacing-tight);
 
-		&:not(:first-child) {
-			border-bottom: 1px solid var(--color-text);
-		}
-
-		&:is(:first-of-type) {
-			border-top: 1px solid var(--color-text);
-		}
+		border-top: 1px solid var(--color-text);
 
 		& p {
 			grid-column: 1 / span 2;
