@@ -6,6 +6,16 @@
 	import Kontakt from '$lib/components/Kontakt/Kontakt.svelte';
 </script>
 
+<svelte:head>
+	<title>Alex Dalene - Kreativ Utvikler</title>
+	<meta name="description" content="Alex Dalene's portfolio" />
+	<meta
+		name="keywords"
+		content="Alex Dalene, portfolio, web development, web design, user experience"
+	/>
+	<meta name="author" content="Alex Dalene" />
+</svelte:head>
+
 <p>
 	Mitt navn er Alex Dalene og jeg er en <span role="heading" aria-level="1">kreativ utvikler</span> spesialisert
 	i brukeropplevelse og design.
