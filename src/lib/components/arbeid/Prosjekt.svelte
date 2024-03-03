@@ -51,22 +51,24 @@
 	<p>{type}</p>
 	<h3>{client}</h3>
 
-	<a {href} target="_blank">
-		<span>[ LIVE ]</span>
-		<svg
-			width="16"
-			height="16"
-			viewBox="0 0 16 16"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-			aria-hidden="true"
-		>
-			<path
-				d="M4.05001 12L3.20001 11.15L9.95001 4.4H4.00001V3.2H12V11.2H10.8V5.25L4.05001 12Z"
-				fill="currentColor"
-			/>
-		</svg>
-	</a>
+	{#if href}
+		<a {href} target="_blank">
+			<span>[ LIVE ]</span>
+			<svg
+				width="16"
+				height="16"
+				viewBox="0 0 16 16"
+				fill="none"
+				xmlns="http://www.w3.org/2000/svg"
+				aria-hidden="true"
+			>
+				<path
+					d="M4.05001 12L3.20001 11.15L9.95001 4.4H4.00001V3.2H12V11.2H10.8V5.25L4.05001 12Z"
+					fill="currentColor"
+				/>
+			</svg>
+		</a>
+	{/if}
 
 	{#if isHovered}
 		<article
@@ -78,27 +80,29 @@
 			<p>{type}</p>
 			<h3>{client}</h3>
 
-			<a {href} target="_blank">
-				<span
-					on:mouseenter={handleMouseEnter}
-					on:mouseleave={handleMouseLeave}
-					role="link"
-					tabindex="0">[ LIVE ]</span
-				>
-				<svg
-					width="16"
-					height="16"
-					viewBox="0 0 16 16"
-					fill="none"
-					xmlns="http://www.w3.org/2000/svg"
-					aria-hidden="true"
-				>
-					<path
-						d="M4.05001 12L3.20001 11.15L9.95001 4.4H4.00001V3.2H12V11.2H10.8V5.25L4.05001 12Z"
-						fill="currentColor"
-					/>
-				</svg>
-			</a>
+			{#if href}
+				<a {href} target="_blank">
+					<span
+						on:mouseenter={handleMouseEnter}
+						on:mouseleave={handleMouseLeave}
+						role="link"
+						tabindex="0">[ LIVE ]</span
+					>
+					<svg
+						width="16"
+						height="16"
+						viewBox="0 0 16 16"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+						aria-hidden="true"
+					>
+						<path
+							d="M4.05001 12L3.20001 11.15L9.95001 4.4H4.00001V3.2H12V11.2H10.8V5.25L4.05001 12Z"
+							fill="currentColor"
+						/>
+					</svg>
+				</a>
+			{/if}
 		</article>
 	{/if}
 </article>

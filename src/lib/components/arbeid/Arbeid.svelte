@@ -1,31 +1,38 @@
 <script>
 	import Heading from '../Heading.svelte';
 	import Prosjekt from './Prosjekt.svelte';
+	import Loading from '../Loading.svelte';
 
 	const prosjekter = [
 		{
-			type: 'Organisasjon',
-			client: 'Sound of Happiness',
-			href: 'https://www.kunde1.no',
-			texture: ['./soh-full.png', './soh-full2.png', './soh-full3.png']
-		},
-		{
 			type: 'Bedrift',
 			client: 'Omsorgskollektivet',
-			href: 'https://www.kunde2.no',
-			texture: ['./ok-full.png', './ok-full2.png', './ok-full3.png']
+			href: 'https://www.omsorgskollektivet.no/',
+			texture: ['./ok-full.webp', './ok-full2.webp', './ok-full3.webp']
+		},
+		{
+			type: 'Organisasjon',
+			client: 'Sound of Happiness',
+			href: null,
+			texture: ['./soh-full.webp', './soh-full2.webp', './soh-full3.webp']
 		},
 		{
 			type: 'Restaurant',
 			client: 'Le Monde Tapas',
-			href: 'https://www.kunde3.no',
-			texture: ['./lmt-full.png', './lmt-full2.png', './lmt-full3.png']
+			href: 'https://lemondetapas.no/',
+			texture: ['./lmt-full.webp', './lmt-full2.webp', './lmt-full3.webp']
 		},
 		{
-			type: 'Tatovering',
-			client: 'Blekksprut Tattoo',
-			href: 'https://www.kunde3.no',
-			texture: ['./bt-full.png', './bt-full2.png', './bt-full3.png']
+			type: 'Eksamen',
+			client: 'Bid-B',
+			href: 'https://ad-exam2.netlify.app/',
+			texture: ['./bb-full.webp', './bb-full2.webp', './bb-full3.webp']
+		},
+		{
+			type: 'Prosjekt',
+			client: 'TILFELDIG',
+			href: 'https://tilfeldig.netlify.app/',
+			texture: ['./tf-full.webp', './tf-full2.webp', './tf-full3.webp']
 		}
 	];
 
@@ -37,10 +44,11 @@
 	let mainPlaneMaterial;
 	let secondaryPlaneMaterial;
 	let tertiaryPlaneMaterial;
-	let uniforms;
 	let transitionStartTime;
 
 	let textures = {};
+
+	let isLoading = true;
 
 	onMount(() => {
 		const scene = new THREE.Scene();
@@ -60,14 +68,7 @@
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		renderer.render(scene, camera);
 
-		const loader = new THREE.TextureLoader();
-
-		renderer.initTexture = () => {
-			const texture = loader.load('./soh-full.png');
-			return texture;
-		};
-
-		camera.position.z = 1.8;
+		camera.position.z = 1.5;
 
 		const controls = new OrbitControls(camera, renderer.domElement);
 		controls.enableDamping = true;
@@ -84,9 +85,7 @@
 		});
 
 		loadingManager.onLoad = () => {
-			// Once all the textures are loaded, start the animation
-			console.log('All textures are loaded');
-			animate();
+			isLoading = false;
 		};
 
 		const fragmentShader = `
@@ -126,9 +125,9 @@
 			});
 		};
 
-		mainPlaneMaterial = createMaterial('./soh-full.png');
-		secondaryPlaneMaterial = createMaterial('./soh-full2.png');
-		tertiaryPlaneMaterial = createMaterial('./soh-full3.png');
+		mainPlaneMaterial = createMaterial('./soh-full.webp');
+		secondaryPlaneMaterial = createMaterial('./soh-full2.webp');
+		tertiaryPlaneMaterial = createMaterial('./soh-full3.webp');
 
 		const mainPlane = () => {
 			const geometry = new THREE.PlaneGeometry(1.6, 1);
@@ -144,7 +143,7 @@
 
 			plane.position.x = 0.8;
 			plane.position.z = 0.2;
-			plane.position.y = -0.1;
+			plane.position.y = -0.4;
 			plane.scale.set(0.6, 0.6, 0.6);
 
 			scene.add(plane);
@@ -156,10 +155,10 @@
 			const geometry = new THREE.PlaneGeometry(0.9, 1.8);
 			const plane = new THREE.Mesh(geometry, tertiaryPlaneMaterial);
 
-			plane.position.x = -0.6;
-			plane.position.z = 0.5;
+			plane.position.x = -0.8;
+			plane.position.z = 0.3;
 			plane.position.y = 0.1;
-			plane.scale.set(0.3, 0.3, 0.3);
+			plane.scale.set(0.4, 0.4, 0.4);
 
 			scene.add(plane);
 		};
@@ -185,6 +184,21 @@
 		const animate = () => {
 			requestAnimationFrame(animate);
 
+			// Get all the planes
+			const [mainPlane, secondaryPlane, tertiaryPlane] = scene.children.filter(
+				(child) => child.type === 'Mesh'
+			);
+
+			// Slightly move the planes randomly
+			mainPlane.position.x += Math.sin(Date.now() * 0.001) * 0.0002;
+			mainPlane.position.y += Math.cos(Date.now() * 0.001) * 0.0002;
+
+			secondaryPlane.position.x += -Math.sin(Date.now() * 0.001) * 0.0001;
+			secondaryPlane.position.y += Math.cos(Date.now() * 0.001) * 0.0001;
+
+			tertiaryPlane.position.x += Math.sin(Date.now() * 0.001) * 0.0001;
+			tertiaryPlane.position.y += -Math.cos(Date.now() * 0.001) * 0.0001;
+
 			// Update the camera position based on the target position
 			mouse.x += (target.x - mouse.x) * 0.05;
 			mouse.y += (target.y - mouse.y) * 0.05;
@@ -202,6 +216,12 @@
 			});
 
 			renderer.render(scene, camera);
+		};
+
+		animate();
+
+		return () => {
+			renderer.dispose();
 		};
 	});
 
@@ -222,22 +242,26 @@
 	let isHovered = false;
 </script>
 
-<section id="arbeid">
-	<Heading title="Fremhevet arbeid" />
+<canvas id="canvas" bind:this={canvas} class:show-canvas={isHovered}></canvas>
 
-	<canvas id="canvas" bind:this={canvas} class:show-canvas={isHovered}></canvas>
+{#if isLoading}
+	<Loading />
+{:else}
+	<section id="arbeid">
+		<Heading title="Fremhevet arbeid" />
 
-	<div
-		class:hide-projects={isHovered}
-		on:mouseenter={() => (isHovered = true)}
-		on:mouseleave={() => (isHovered = false)}
-		role="list"
-	>
-		{#each prosjekter as prosjekt}
-			<Prosjekt {...prosjekt} {changeTexture} />
-		{/each}
-	</div>
-</section>
+		<div
+			class:hide-projects={isHovered}
+			on:mouseenter={() => (isHovered = true)}
+			on:mouseleave={() => (isHovered = false)}
+			role="list"
+		>
+			{#each prosjekter as prosjekt}
+				<Prosjekt {...prosjekt} {changeTexture} />
+			{/each}
+		</div>
+	</section>
+{/if}
 
 <style>
 	canvas {
