@@ -29,7 +29,7 @@
 		links.forEach((link) => {
 			const tl = gsap.timeline();
 
-			link.addEventListener('mouseenter', () => {
+			link.addEventListener('mouseenter', (e) => {
 				tl.play();
 
 				tl.to(link, {
