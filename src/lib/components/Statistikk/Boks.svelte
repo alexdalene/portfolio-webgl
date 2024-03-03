@@ -17,7 +17,7 @@
 	article {
 		background-color: var(--color-neutral);
 		border-radius: 0.25rem;
-		padding: 1.8125rem;
+		padding: 5%;
 		text-align: center;
 		width: 100%;
 
@@ -37,7 +37,7 @@
 		position: absolute;
 		top: 0;
 		left: 0;
-		width: 2rem;
-		height: 2rem;
+		width: 1.5rem;
+		height: 1.5rem;
 	}
 </style>

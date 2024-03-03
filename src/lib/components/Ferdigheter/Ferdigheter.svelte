@@ -40,6 +40,10 @@
 <style>
 	section {
 		grid-column: 1 / span 3;
+
+		@media (max-width: 768px) {
+			grid-column: 1 / span 12;
+		}
 	}
 
 	ul {

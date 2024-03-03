@@ -38,5 +38,13 @@
 		& div {
 			grid-column: 6 / span 5;
 		}
+
+		@media (max-width: 768px) {
+			grid-template-columns: 1fr;
+
+			& div {
+				grid-column: 1 / span 12;
+			}
+		}
 	}
 </style>

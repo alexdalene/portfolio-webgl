@@ -51,6 +51,10 @@
 	let isLoading = true;
 
 	onMount(() => {
+		const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+			navigator.userAgent
+		);
+
 		const scene = new THREE.Scene();
 		const camera = new THREE.PerspectiveCamera(
 			75,
@@ -69,6 +73,7 @@
 		renderer.render(scene, camera);
 
 		camera.position.z = 1.5;
+		if (isMobile) camera.position.z = 2.5;
 
 		const controls = new OrbitControls(camera, renderer.domElement);
 		controls.enableDamping = true;
@@ -146,6 +151,13 @@
 			plane.position.y = -0.4;
 			plane.scale.set(0.6, 0.6, 0.6);
 
+			if (isMobile) {
+				plane.position.x = 0;
+				plane.position.y = -0.7;
+				plane.position.z = 0.4;
+				plane.scale.set(0.7, 0.7, 0.7);
+			}
+
 			scene.add(plane);
 		};
 
@@ -159,6 +171,13 @@
 			plane.position.z = 0.3;
 			plane.position.y = 0.1;
 			plane.scale.set(0.4, 0.4, 0.4);
+
+			if (isMobile) {
+				plane.position.x = -0.2;
+				plane.position.y = 0.8;
+				plane.position.z = 0.5;
+				plane.scale.set(0.5, 0.5, 0.5);
+			}
 
 			scene.add(plane);
 		};
