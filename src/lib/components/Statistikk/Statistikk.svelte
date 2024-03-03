@@ -21,9 +21,13 @@
 
 <style>
 	div {
-		display: flex;
-		flex-direction: row;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
 		gap: var(--spacing-compact);
 		max-width: calc(26rem + 4vw);
+
+		@media (max-width: 768px) {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>

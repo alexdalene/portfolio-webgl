@@ -51,24 +51,22 @@
 	<p>{type}</p>
 	<h3>{client}</h3>
 
-	{#if href}
-		<a {href} target="_blank">
-			<span>[ LIVE ]</span>
-			<svg
-				width="16"
-				height="16"
-				viewBox="0 0 16 16"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-				aria-hidden="true"
-			>
-				<path
-					d="M4.05001 12L3.20001 11.15L9.95001 4.4H4.00001V3.2H12V11.2H10.8V5.25L4.05001 12Z"
-					fill="currentColor"
-				/>
-			</svg>
-		</a>
-	{/if}
+	<a {href} target="_blank" class:not-active={!href}>
+		<span>[ LIVE ]</span>
+		<svg
+			width="16"
+			height="16"
+			viewBox="0 0 16 16"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+			aria-hidden="true"
+		>
+			<path
+				d="M4.05001 12L3.20001 11.15L9.95001 4.4H4.00001V3.2H12V11.2H10.8V5.25L4.05001 12Z"
+				fill="currentColor"
+			/>
+		</svg>
+	</a>
 
 	{#if isHovered}
 		<article
@@ -124,6 +122,10 @@
 
 		& h3 {
 			grid-column: 4 / span 4;
+
+			@media (max-width: 768px) {
+				grid-column: 5 / span 4;
+			}
 		}
 
 		& a {
@@ -134,6 +136,11 @@
 			align-items: center;
 			gap: var(--spacing-compact);
 		}
+	}
+
+	.not-active {
+		pointer-events: none;
+		opacity: 0;
 	}
 
 	.project-overlay {

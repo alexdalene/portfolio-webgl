@@ -17,11 +17,15 @@
 	article {
 		background-color: var(--color-neutral);
 		border-radius: 0.25rem;
-		padding: 5%;
+		padding-block: var(--spacing-loose);
 		text-align: center;
 		width: 100%;
 
 		position: relative;
+
+		@media (max-width: 768px) {
+			padding-block: var(--spacing-tight);
+		}
 	}
 
 	h3 {

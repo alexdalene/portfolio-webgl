@@ -188,7 +188,7 @@
 
 		& svg {
 			height: fit-content;
-			width: 140%;
+			width: 160%;
 		}
 	}
 
