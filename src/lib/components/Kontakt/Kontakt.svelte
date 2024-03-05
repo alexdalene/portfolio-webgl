@@ -3,8 +3,8 @@
 
 	const kontakt = [
 		{ title: '[ MAIL ]', href: 'mailto:alexdalene@outlook.com' },
-		{ title: '[ TWITTER ]', href: '' },
-		{ title: '[ LINKEDIN ]', href: '' }
+		{ title: '[ TWITTER ]', href: 'https://twitter.com/xenelad' },
+		{ title: '[ LINKEDIN ]', href: 'https://www.linkedin.com/in/alex-dalene/' }
 	];
 </script>
 

@@ -161,7 +161,63 @@
 			scene.add(plane);
 		};
 
-		secondaryPlane();
+		secondaryPlane();<script>
+  // other imports and code...
+
+  onMount(() => {
+    // other code...
+
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    const mainPlane = () => {
+      const geometry = new THREE.PlaneGeometry(1.6, 1);
+      const plane = new THREE.Mesh(geometry, mainPlaneMaterial);
+      if (isMobile) {
+        // Adjust the position for mobile
+        plane.position.x = ...;
+        plane.position.y = ...;
+        plane.position.z = ...;
+      }
+      scene.add(plane);
+    };
+
+    mainPlane();
+
+    const secondaryPlane = () => {
+      const geometry = new THREE.PlaneGeometry(1.6, 1);
+      const plane = new THREE.Mesh(geometry, secondaryPlaneMaterial);
+      if (isMobile) {
+        // Adjust the position for mobile
+        plane.position.x = ...;
+        plane.position.y = ...;
+        plane.position.z = ...;
+      }
+      scene.add(plane);
+    };
+
+    secondaryPlane();
+
+    const tertiaryPlane = () => {
+      const geometry = new THREE.PlaneGeometry(0.9, 1.8);
+      const plane = new THREE.Mesh(geometry, tertiaryPlaneMaterial);
+      if (isMobile) {
+        // Adjust the position for mobile
+        plane.position.x = ...;
+        plane.position.y = ...;
+        plane.position.z = ...;
+      }
+      scene.add(plane);
+    };
+
+    tertiaryPlane();
+
+    // other code...
+  });
+
+  // other code...
+</script>
+
+<!-- the rest of your component... -->
 
 		const tertiaryPlane = () => {
 			const geometry = new THREE.PlaneGeometry(0.9, 1.8);
