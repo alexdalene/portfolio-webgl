@@ -73,6 +73,13 @@
 		renderer.render(scene, camera);
 
 		camera.position.z = 1.5;
+
+		if (window.innerWidth < 1400) camera.position.z = 2;
+
+		if (window.innerWidth < 900) camera.position.z = 2.5;
+
+		if (window.innerWidth < 600) camera.position.z = 3;
+
 		if (isMobile) camera.position.z = 2.5;
 
 		const controls = new OrbitControls(camera, renderer.domElement);
@@ -137,6 +144,13 @@
 		const mainPlane = () => {
 			const geometry = new THREE.PlaneGeometry(1.6, 1);
 			const plane = new THREE.Mesh(geometry, mainPlaneMaterial);
+
+			plane.scale.set(1.4, 1.4, 1.4);
+
+			if (isMobile) {
+				plane.scale.set(1, 1, 1);
+			}
+
 			scene.add(plane);
 		};
 
@@ -146,93 +160,35 @@
 			const geometry = new THREE.PlaneGeometry(1.6, 1);
 			const plane = new THREE.Mesh(geometry, secondaryPlaneMaterial);
 
-			plane.position.x = 0.8;
-			plane.position.z = 0.2;
+			plane.position.x = 0.7;
+			plane.position.z = 0.5;
 			plane.position.y = -0.4;
-			plane.scale.set(0.6, 0.6, 0.6);
+			plane.scale.set(0.4, 0.4, 0.4);
 
 			if (isMobile) {
-				plane.position.x = 0;
-				plane.position.y = -0.7;
-				plane.position.z = 0.4;
-				plane.scale.set(0.7, 0.7, 0.7);
+				plane.position.x = 0.1;
+				plane.position.y = -0.6;
+				plane.scale.set(0.5, 0.5, 0.5);
 			}
 
 			scene.add(plane);
 		};
 
-		secondaryPlane();<script>
-  // other imports and code...
-
-  onMount(() => {
-    // other code...
-
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-    const mainPlane = () => {
-      const geometry = new THREE.PlaneGeometry(1.6, 1);
-      const plane = new THREE.Mesh(geometry, mainPlaneMaterial);
-      if (isMobile) {
-        // Adjust the position for mobile
-        plane.position.x = ...;
-        plane.position.y = ...;
-        plane.position.z = ...;
-      }
-      scene.add(plane);
-    };
-
-    mainPlane();
-
-    const secondaryPlane = () => {
-      const geometry = new THREE.PlaneGeometry(1.6, 1);
-      const plane = new THREE.Mesh(geometry, secondaryPlaneMaterial);
-      if (isMobile) {
-        // Adjust the position for mobile
-        plane.position.x = ...;
-        plane.position.y = ...;
-        plane.position.z = ...;
-      }
-      scene.add(plane);
-    };
-
-    secondaryPlane();
-
-    const tertiaryPlane = () => {
-      const geometry = new THREE.PlaneGeometry(0.9, 1.8);
-      const plane = new THREE.Mesh(geometry, tertiaryPlaneMaterial);
-      if (isMobile) {
-        // Adjust the position for mobile
-        plane.position.x = ...;
-        plane.position.y = ...;
-        plane.position.z = ...;
-      }
-      scene.add(plane);
-    };
-
-    tertiaryPlane();
-
-    // other code...
-  });
-
-  // other code...
-</script>
-
-<!-- the rest of your component... -->
+		secondaryPlane();
 
 		const tertiaryPlane = () => {
-			const geometry = new THREE.PlaneGeometry(0.9, 1.8);
+			const geometry = new THREE.PlaneGeometry(1.6, 1);
 			const plane = new THREE.Mesh(geometry, tertiaryPlaneMaterial);
 
-			plane.position.x = -0.8;
-			plane.position.z = 0.3;
-			plane.position.y = 0.1;
-			plane.scale.set(0.4, 0.4, 0.4);
+			plane.position.x = -0.7;
+			plane.position.z = 0.4;
+			plane.position.y = 0.2;
+			plane.scale.set(0.5, 0.5, 0.5);
 
 			if (isMobile) {
-				plane.position.x = -0.2;
-				plane.position.y = 0.8;
-				plane.position.z = 0.5;
-				plane.scale.set(0.5, 0.5, 0.5);
+				plane.position.x = -0.1;
+				plane.position.y = 0.65;
+				plane.scale.set(0.6, 0.6, 0.6);
 			}
 
 			scene.add(plane);
@@ -265,14 +221,14 @@
 			);
 
 			// Slightly move the planes randomly
-			mainPlane.position.x += Math.sin(Date.now() * 0.001) * 0.0002;
-			mainPlane.position.y += Math.cos(Date.now() * 0.001) * 0.0002;
+			mainPlane.position.x += Math.sin(Date.now() * 0.001) * 0.0001;
+			mainPlane.position.y += Math.cos(Date.now() * 0.001) * 0.0001;
 
-			secondaryPlane.position.x += -Math.sin(Date.now() * 0.001) * 0.0001;
-			secondaryPlane.position.y += Math.cos(Date.now() * 0.001) * 0.0001;
+			secondaryPlane.position.x += -Math.sin(Date.now() * 0.001) * 0.00006;
+			secondaryPlane.position.y += Math.cos(Date.now() * 0.001) * 0.00006;
 
-			tertiaryPlane.position.x += Math.sin(Date.now() * 0.001) * 0.0001;
-			tertiaryPlane.position.y += -Math.cos(Date.now() * 0.001) * 0.0001;
+			tertiaryPlane.position.x += Math.sin(Date.now() * 0.001) * 0.00006;
+			tertiaryPlane.position.y += -Math.cos(Date.now() * 0.001) * 0.00006;
 
 			// Update the camera position based on the target position
 			mouse.x += (target.x - mouse.x) * 0.05;
@@ -280,6 +236,7 @@
 
 			camera.position.x = -mouse.x * 0.2;
 			camera.position.y = -mouse.y * 0.2;
+
 			controls.update();
 
 			// Update the blend uniform over time to transition between the textures
