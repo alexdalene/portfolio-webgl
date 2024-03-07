@@ -3,6 +3,10 @@
 	import Prosjekt from './Prosjekt.svelte';
 	import Loading from '../Loading.svelte';
 
+	import * as THREE from 'three';
+	import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+	import { onMount } from 'svelte';
+
 	const prosjekter = [
 		{
 			type: 'Bedrift',
@@ -36,11 +40,6 @@
 		}
 	];
 
-	import * as THREE from 'three';
-	import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-
-	import { onMount } from 'svelte';
-
 	let mainPlaneMaterial;
 	let secondaryPlaneMaterial;
 	let tertiaryPlaneMaterial;
@@ -49,6 +48,9 @@
 	let textures = {};
 
 	let isLoading = true;
+	let isMouseMoving = false;
+	let mouseMovement = new THREE.Vector2(); // The current mouse movement
+	let prevMousePosition = new THREE.Vector2(); // The previous mouse position
 
 	onMount(() => {
 		const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -74,13 +76,10 @@
 
 		camera.position.z = 1.5;
 
-		if (window.innerWidth < 1400) camera.position.z = 2;
-
-		if (window.innerWidth < 900) camera.position.z = 2.5;
-
-		if (window.innerWidth < 600) camera.position.z = 3;
-
 		if (isMobile) camera.position.z = 2.5;
+
+		// Create a group
+		const group = new THREE.Group();
 
 		const controls = new OrbitControls(camera, renderer.domElement);
 		controls.enableDamping = true;
@@ -141,60 +140,50 @@
 		secondaryPlaneMaterial = createMaterial('./soh-full2.webp');
 		tertiaryPlaneMaterial = createMaterial('./soh-full3.webp');
 
-		const mainPlane = () => {
+		// Create variables to store the planes
+		let mainPlane, secondaryPlane, tertiaryPlane;
+
+		const createPlane = (material) => {
 			const geometry = new THREE.PlaneGeometry(1.6, 1);
-			const plane = new THREE.Mesh(geometry, mainPlaneMaterial);
-
-			plane.scale.set(1.4, 1.4, 1.4);
-
-			if (isMobile) {
-				plane.scale.set(1, 1, 1);
-			}
-
-			scene.add(plane);
+			const plane = new THREE.Mesh(geometry, material);
+			return plane;
 		};
 
-		mainPlane();
+		mainPlane = createPlane(mainPlaneMaterial);
+		secondaryPlane = createPlane(secondaryPlaneMaterial);
+		tertiaryPlane = createPlane(tertiaryPlaneMaterial);
 
-		const secondaryPlane = () => {
-			const geometry = new THREE.PlaneGeometry(1.6, 1);
-			const plane = new THREE.Mesh(geometry, secondaryPlaneMaterial);
+		// Scale the planes
+		mainPlane.scale.set(1.4, 1.4, 1.4);
+		secondaryPlane.scale.set(0.4, 0.4, 0.4);
+		tertiaryPlane.scale.set(0.5, 0.5, 0.5);
 
-			plane.position.x = 0.7;
-			plane.position.z = 0.5;
-			plane.position.y = -0.4;
-			plane.scale.set(0.4, 0.4, 0.4);
+		// Position the planes
+		secondaryPlane.position.x = 0.7;
+		secondaryPlane.position.z = 0.5;
+		secondaryPlane.position.y = -0.4;
 
-			if (isMobile) {
-				plane.position.x = 0.1;
-				plane.position.y = -0.6;
-				plane.scale.set(0.5, 0.5, 0.5);
-			}
+		tertiaryPlane.position.x = -0.7;
+		tertiaryPlane.position.z = 0.4;
+		tertiaryPlane.position.y = 0.2;
 
-			scene.add(plane);
-		};
+		if (isMobile) {
+			mainPlane.scale.set(1, 1, 1);
 
-		secondaryPlane();
+			secondaryPlane.position.x = 0.1;
+			secondaryPlane.position.y = -0.6;
+			secondaryPlane.scale.set(0.5, 0.5, 0.5);
 
-		const tertiaryPlane = () => {
-			const geometry = new THREE.PlaneGeometry(1.6, 1);
-			const plane = new THREE.Mesh(geometry, tertiaryPlaneMaterial);
+			tertiaryPlane.position.x = -0.1;
+			tertiaryPlane.position.y = 0.65;
+		}
 
-			plane.position.x = -0.7;
-			plane.position.z = 0.4;
-			plane.position.y = 0.2;
-			plane.scale.set(0.5, 0.5, 0.5);
+		// Add the planes to the group
+		group.add(mainPlane);
+		group.add(secondaryPlane);
+		group.add(tertiaryPlane);
 
-			if (isMobile) {
-				plane.position.x = -0.1;
-				plane.position.y = 0.65;
-				plane.scale.set(0.6, 0.6, 0.6);
-			}
-
-			scene.add(plane);
-		};
-
-		tertiaryPlane();
+		scene.add(group);
 
 		const light = new THREE.DirectionalLight(0xffffff, 1);
 		light.position.set(0, 0, 1);
@@ -210,32 +199,66 @@
 			// Calculate the target camera position based on the mouse position
 			target.x = (event.clientX / window.innerWidth) * 2 - 1;
 			target.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+			// Calculate the current mouse position
+			let mousePosition = new THREE.Vector2();
+			mousePosition.x = target.x;
+
+			// Calculate the mouse movement
+			mouseMovement.subVectors(mousePosition, prevMousePosition);
+
+			// Store the current mouse position for the next frame
+			prevMousePosition.copy(mousePosition);
+
+			isMouseMoving = true;
 		});
 
 		const animate = () => {
 			requestAnimationFrame(animate);
 
-			// Get all the planes
-			const [mainPlane, secondaryPlane, tertiaryPlane] = scene.children.filter(
-				(child) => child.type === 'Mesh'
-			);
+			// // Slightly move the planes randomly
+			mainPlane.position.x += Math.sin(Date.now() * 0.001) * 0.0002;
+			mainPlane.position.y += Math.cos(Date.now() * 0.001) * 0.0002;
 
-			// Slightly move the planes randomly
-			mainPlane.position.x += Math.sin(Date.now() * 0.001) * 0.0001;
-			mainPlane.position.y += Math.cos(Date.now() * 0.001) * 0.0001;
+			secondaryPlane.position.x += -Math.sin(Date.now() * 0.001) * 0.0002;
+			secondaryPlane.position.y += Math.cos(Date.now() * 0.001) * 0.0002;
 
-			secondaryPlane.position.x += -Math.sin(Date.now() * 0.001) * 0.00006;
-			secondaryPlane.position.y += Math.cos(Date.now() * 0.001) * 0.00006;
-
-			tertiaryPlane.position.x += Math.sin(Date.now() * 0.001) * 0.00006;
-			tertiaryPlane.position.y += -Math.cos(Date.now() * 0.001) * 0.00006;
+			tertiaryPlane.position.x += Math.sin(Date.now() * 0.001) * 0.0003;
+			tertiaryPlane.position.y += -Math.cos(Date.now() * 0.001) * 0.0003;
 
 			// Update the camera position based on the target position
 			mouse.x += (target.x - mouse.x) * 0.05;
 			mouse.y += (target.y - mouse.y) * 0.05;
 
-			camera.position.x = -mouse.x * 0.2;
-			camera.position.y = -mouse.y * 0.2;
+			if (!isMobile) {
+				group.position.x = mouse.x * 0.4;
+				group.position.y = mouse.y * 0.1;
+				group.rotation.y = mouse.x * 0.2;
+
+				// Update the group rotation based on the mouse movement
+				group.rotation.z += mouseMovement.x * 0.05;
+			}
+
+			// If the mouse is not moving, gradually return the rotation to zero
+			if (!isMouseMoving) {
+				group.rotation.z *= 0.95;
+
+				// If the rotation is very small, set it exactly to zero
+				if (Math.abs(group.rotation.z) < 0.001) {
+					group.rotation.z = 0;
+				}
+			}
+
+			// Set isMouseMoving to false for the next frame
+			isMouseMoving = false;
+
+			camera.position.z = 1.7;
+
+			if (window.innerWidth < 1400) camera.position.z = 2;
+
+			if (window.innerWidth < 900) camera.position.z = 2.5;
+
+			if (window.innerWidth < 600) camera.position.z = 3;
 
 			controls.update();
 
@@ -252,7 +275,21 @@
 
 		animate();
 
+		// Add a resize event listener to update the renderer size and the camera aspect ratio
+		window.addEventListener('resize', () => {
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+		});
+
 		return () => {
+			// Remove the resize event listener when the component is unmounted
+			window.removeEventListener('resize', () => {
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+			});
+
 			renderer.dispose();
 		};
 	});
