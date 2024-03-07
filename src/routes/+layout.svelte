@@ -184,10 +184,11 @@
 	#name {
 		overflow-x: hidden;
 		width: 100%;
-		margin-block: var(--spacing-default);
+		margin-top: var(--spacing-default);
+		margin-bottom: var(--spacing-tight);
 
 		& svg {
-			height: fit-content;
+			height: 100%;
 			width: 160%;
 		}
 	}
