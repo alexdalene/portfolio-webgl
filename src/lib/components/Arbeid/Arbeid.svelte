@@ -170,12 +170,13 @@
 		if (isMobile) {
 			mainPlane.scale.set(1, 1, 1);
 
-			secondaryPlane.position.x = 0.1;
-			secondaryPlane.position.y = -0.6;
-			secondaryPlane.scale.set(0.5, 0.5, 0.5);
+			secondaryPlane.position.x = -0.1;
+			secondaryPlane.position.y = -0.8;
+			secondaryPlane.scale.set(0.8, 0.8, 0.8);
 
-			tertiaryPlane.position.x = -0.1;
-			tertiaryPlane.position.y = 0.65;
+			tertiaryPlane.position.x = 0.1;
+			tertiaryPlane.position.y = 0.8;
+			tertiaryPlane.scale.set(0.8, 0.8, 0.8);
 		}
 
 		// Add the planes to the group
