@@ -4,10 +4,9 @@
 	import Loading from '../Loading.svelte';
 
 	import * as THREE from 'three';
-	import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 	import { onMount } from 'svelte';
 
-	const prosjekter = [
+	const projects = [
 		{
 			type: 'Bedrift',
 			client: 'Omsorgskollektivet',
@@ -70,27 +69,21 @@
 			antialias: true,
 			alpha: true
 		});
-		renderer.setPixelRatio(window.devicePixelRatio);
 		renderer.setSize(window.innerWidth, window.innerHeight);
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 		renderer.render(scene, camera);
 
 		camera.position.z = 1.5;
-
 		if (isMobile) camera.position.z = 2.5;
 
-		// Create a group
 		const group = new THREE.Group();
-
-		const controls = new OrbitControls(camera, renderer.domElement);
-		controls.enableDamping = true;
-		controls.dampingFactor = 0.02;
 
 		const loadingManager = new THREE.LoadingManager();
 		const textureLoader = new THREE.TextureLoader(loadingManager);
 
 		// Preload all the textures
-		prosjekter.forEach((prosjekt) => {
-			prosjekt.texture.forEach((texturePath) => {
+		projects.forEach((project) => {
+			project.texture.forEach((texturePath) => {
 				textures[texturePath] = textureLoader.load(texturePath);
 			});
 		});
@@ -122,9 +115,9 @@
       }
     `;
 
-		const createMaterial = (initialTexture) => {
+		const createMaterial = () => {
 			const uniforms = {
-				texture1: { value: new THREE.TextureLoader().load(initialTexture) },
+				texture1: { value: new THREE.TextureLoader() },
 				texture2: { value: null },
 				blend: { value: 0 }
 			};
@@ -136,9 +129,9 @@
 			});
 		};
 
-		mainPlaneMaterial = createMaterial('./soh-full.webp');
-		secondaryPlaneMaterial = createMaterial('./soh-full2.webp');
-		tertiaryPlaneMaterial = createMaterial('./soh-full3.webp');
+		mainPlaneMaterial = createMaterial();
+		secondaryPlaneMaterial = createMaterial();
+		tertiaryPlaneMaterial = createMaterial();
 
 		// Create variables to store the planes
 		let mainPlane, secondaryPlane, tertiaryPlane;
@@ -214,8 +207,26 @@
 			isMouseMoving = true;
 		});
 
-		const animate = () => {
-			requestAnimationFrame(animate);
+		/**
+		 * Resize
+		 */
+		window.addEventListener('resize', () => {
+			// Update camera
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+
+			// Update renderer
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+		});
+
+		/**
+		 * Animate
+		 */
+		const clock = new THREE.Clock();
+
+		const tick = () => {
+			const elapsedTime = clock.getElapsedTime();
 
 			// // Slightly move the planes randomly
 			mainPlane.position.x += Math.sin(Date.now() * 0.001) * 0.0002;
@@ -240,7 +251,7 @@
 				group.rotation.z += mouseMovement.x * 0.05;
 			}
 
-			// If the mouse is not moving, gradually return the rotation to zero
+			// // If the mouse is not moving, gradually return the rotation to zero
 			if (!isMouseMoving) {
 				group.rotation.z *= 0.95;
 
@@ -250,9 +261,6 @@
 				}
 			}
 
-			// Set isMouseMoving to false for the next frame
-			isMouseMoving = false;
-
 			camera.position.z = 1.7;
 
 			if (window.innerWidth < 1400) camera.position.z = 2;
@@ -261,27 +269,22 @@
 
 			if (window.innerWidth < 600) camera.position.z = 3;
 
-			controls.update();
-
 			// Update the blend uniform over time to transition between the textures
 			[mainPlaneMaterial, secondaryPlaneMaterial, tertiaryPlaneMaterial].forEach((material) => {
 				if (material.uniforms.texture2.value && transitionStartTime) {
 					const elapsedTime = Date.now() - transitionStartTime;
-					material.uniforms.blend.value = Math.min(elapsedTime / 1000, 1);
+					material.uniforms.blend.value = Math.min(elapsedTime / 600, 1);
 				}
 			});
 
 			renderer.render(scene, camera);
+
+			// Set isMouseMoving to false for the next frame
+			isMouseMoving = false;
+			window.requestAnimationFrame(tick);
 		};
 
-		animate();
-
-		// Add a resize event listener to update the renderer size and the camera aspect ratio
-		window.addEventListener('resize', () => {
-			renderer.setSize(window.innerWidth, window.innerHeight);
-			camera.aspect = window.innerWidth / window.innerHeight;
-			camera.updateProjectionMatrix();
-		});
+		tick();
 
 		return () => {
 			// Remove the resize event listener when the component is unmounted
@@ -326,7 +329,7 @@
 			on:mouseleave={() => (isHovered = false)}
 			role="list"
 		>
-			{#each prosjekter as prosjekt}
+			{#each projects as prosjekt}
 				<Prosjekt {...prosjekt} {changeTexture} />
 			{/each}
 		</div>
