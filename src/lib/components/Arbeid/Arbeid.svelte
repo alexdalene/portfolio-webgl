@@ -93,27 +93,27 @@
 		};
 
 		const fragmentShader = `
-      uniform sampler2D texture1;
-      uniform sampler2D texture2;
-      uniform float blend;
+		uniform sampler2D texture1;
+		uniform sampler2D texture2;
+		uniform float blend;
 
-      varying vec2 vUv;
+		varying vec2 vUv;
 
-      void main() {
-        vec4 color1 = texture2D(texture1, vUv);
-        vec4 color2 = texture2D(texture2, vUv);
-        gl_FragColor = mix(color1, color2, blend);
-      }
-    `;
+		void main() {
+			vec4 color1 = texture2D(texture1, vUv);
+			vec4 color2 = texture2D(texture2, vUv);
+			gl_FragColor = mix(color1, color2, blend);
+		}
+		`;
 
 		const vertexShader = `
-      varying vec2 vUv;
+		varying vec2 vUv;
 
-      void main() {
-        vUv = uv;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-      }
-    `;
+		void main() {
+			vUv = uv;
+			gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+		}
+		`;
 
 		const createMaterial = () => {
 			const uniforms = {
@@ -179,13 +179,9 @@
 
 		scene.add(group);
 
-		const light = new THREE.DirectionalLight(0xffffff, 1);
-		light.position.set(0, 0, 1);
-
-		const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-
-		scene.add(light, ambientLight);
-
+		/**
+		 * Mouse
+		 */
 		let target = new THREE.Vector3(); // The target position for the camera
 		let mouse = new THREE.Vector2(); // The current mouse position
 
@@ -281,6 +277,7 @@
 
 			// Set isMouseMoving to false for the next frame
 			isMouseMoving = false;
+
 			window.requestAnimationFrame(tick);
 		};
 
