@@ -4,17 +4,15 @@
 	const kontakt = [
 		{ title: '[ MAIL ]', href: 'mailto:alexdalene@outlook.com' },
 		{ title: '[ TWITTER ]', href: 'https://twitter.com/xenelad' },
-		{ title: '[ LINKEDIN ]', href: 'https://www.linkedin.com/in/alex-dalene/' }
+		{ title: '[ LINKEDIN ]', href: 'https://www.linkedin.com/in/alex-dalene/' },
+		{ title: '[ GITHUB ]', href: 'https://github.com/alexdalene' }
 	];
 </script>
 
 <section id="kontakt">
 	<Heading title="Ta kontakt" />
 
-	<p>
-		Du kan nå meg nesten overalt, så lenge jeg ikke tror du er en selger eller har info om
-		forsvunnet gull i Nigeria som jeg kan investere i.
-	</p>
+	<p>Ta gjerne kontakt om du har spørsmål, ønsker å samarbeide eller bare vil slå av en prat.</p>
 
 	<ul>
 		{#each kontakt as { title, href }}
