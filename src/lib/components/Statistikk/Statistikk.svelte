@@ -5,7 +5,7 @@
 	const statistikk = [
 		{ title: 'Kodespråk', value: '+10' },
 		{ title: 'Klienter', value: '+4' },
-		{ title: 'Arbeidserfaring', value: '+7 år' }
+		{ title: 'Arbeidserfaring', value: '+4 år' }
 	];
 </script>
 
