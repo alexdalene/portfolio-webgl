@@ -36,6 +36,12 @@
 			client: 'TILFELDIG',
 			href: 'https://tilfeldig.netlify.app/',
 			texture: ['./tf-full.webp', './tf-full2.webp', './tf-full3.webp']
+		},
+		{
+			type: 'Organisasjon',
+			client: 'Guttas Campus',
+			href: 'https://guttascampus.no/',
+			texture: ['./gc-full.webp', './gc-full2.webp', './gc-full3.webp']
 		}
 	];
 
