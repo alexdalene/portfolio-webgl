@@ -8,37 +8,43 @@
 
 	const projects = [
 		{
-			type: 'Bedrift',
-			client: 'Omsorgskollektivet',
-			href: 'https://www.omsorgskollektivet.no/',
-			texture: ['./ok-full.webp', './ok-full2.webp', './ok-full3.webp']
+			type: 'React',
+			client: 'Holidaze',
+			href: 'https://project-exam-2-orcin.vercel.app/',
+			texture: ['./hz-full.webp', './hz-full2.webp', './hz-full3.webp']
 		},
 		{
-			type: 'Organisasjon',
+			type: 'CMS',
 			client: 'Sound of Happiness',
 			href: null,
 			texture: ['./soh-full.webp', './soh-full2.webp', './soh-full3.webp']
 		},
 		{
-			type: 'Restaurant',
-			client: 'Le Monde Tapas',
-			href: 'https://lemondetapas.no/',
-			texture: ['./lmt-full.webp', './lmt-full2.webp', './lmt-full3.webp']
-		},
-		{
-			type: 'Eksamen',
+			type: 'JavaScript',
 			client: 'Bid-B',
 			href: 'https://ad-exam2.netlify.app/',
 			texture: ['./bb-full.webp', './bb-full2.webp', './bb-full3.webp']
 		},
 		{
-			type: 'Prosjekt',
+			type: 'CMS',
+			client: 'Omsorgskollektivet',
+			href: 'https://www.omsorgskollektivet.no/',
+			texture: ['./ok-full.webp', './ok-full2.webp', './ok-full3.webp']
+		},
+		{
+			type: 'Svelte',
 			client: 'TILFELDIG',
 			href: 'https://tilfeldig.netlify.app/',
 			texture: ['./tf-full.webp', './tf-full2.webp', './tf-full3.webp']
 		},
 		{
-			type: 'Organisasjon',
+			type: 'CMS',
+			client: 'Le Monde Tapas',
+			href: 'https://lemondetapas.no/',
+			texture: ['./lmt-full.webp', './lmt-full2.webp', './lmt-full3.webp']
+		},
+		{
+			type: 'CMS',
 			client: 'Guttas Campus',
 			href: 'https://guttascampus.no/',
 			texture: ['./gc-full.webp', './gc-full2.webp', './gc-full3.webp']
@@ -153,7 +159,7 @@
 		tertiaryPlane = createPlane(tertiaryPlaneMaterial);
 
 		// Scale the planes
-		mainPlane.scale.set(1.4, 1.4, 1.4);
+		mainPlane.scale.set(1.2, 1.2, 1.2);
 		secondaryPlane.scale.set(0.4, 0.4, 0.4);
 		tertiaryPlane.scale.set(0.5, 0.5, 0.5);
 
@@ -164,14 +170,14 @@
 
 		tertiaryPlane.position.x = -0.7;
 		tertiaryPlane.position.z = 0.4;
-		tertiaryPlane.position.y = 0.2;
+		tertiaryPlane.position.y = 0.3;
 
 		if (isMobile) {
 			mainPlane.scale.set(1, 1, 1);
 
 			secondaryPlane.position.x = -0.1;
 			secondaryPlane.position.y = -0.8;
-			secondaryPlane.scale.set(0.8, 0.8, 0.8);
+			secondaryPlane.scale.set(0.7, 0.7, 0.7);
 
 			tertiaryPlane.position.x = 0.1;
 			tertiaryPlane.position.y = 0.8;
@@ -241,8 +247,8 @@
 			tertiaryPlane.position.y += -Math.cos(Date.now() * 0.001) * 0.0003;
 
 			// Update the camera position based on the target position
-			mouse.x += (target.x - mouse.x) * 0.05;
-			mouse.y += (target.y - mouse.y) * 0.05;
+			mouse.x += (target.x - mouse.x) * 0.03;
+			mouse.y += (target.y - mouse.y) * 0.03;
 
 			if (!isMobile) {
 				group.position.x = mouse.x * 0.4;
@@ -348,9 +354,10 @@
 		opacity: 0;
 		width: 100%;
 		height: 100%;
-		transition: opacity 300ms ease;
+		transition: opacity 600ms ease-in-out;
 		pointer-events: none;
-		background-color: #525250ed;
+		background-color: rgba(0, 0, 0, 0.6);
+		backdrop-filter: blur(4px);
 	}
 
 	.show-canvas {

@@ -5,8 +5,8 @@
 <section>
 	<Heading title="Om meg" />
 	<p>
-		Jeg studerer foreløpig på Noroff i Kristiansand, og har snart en høyere fagskolegrad i
-		Frontend-utvikling.
+		Jeg har en høyere fagskolegrad i frontend-utvikling fra Noroff, og har spesialisert meg i å lage
+		interaktive og dynamiske webløsninger, med høyt fokus på brukeropplevelse.
 	</p>
 	<p>
 		Jeg har samtidig som skolegangen jobbet som frontend-utvikler i et lite selskap i Oslo, og har

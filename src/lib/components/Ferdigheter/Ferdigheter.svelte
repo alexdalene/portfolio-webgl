@@ -4,27 +4,22 @@
 	const ferdigheter = [
 		'HTML',
 		'CSS',
+		'TailwindCSS',
+		'SCSS',
 		'JavaScript',
+		'TypeScript',
 		'Svelte',
 		'React',
-		'Node.js',
 		'Jest',
 		'Cypress',
-		'GSAP',
 		'Git',
+		'Node.js',
 		'WebGL',
 		'Three.js',
-		'TailwindCSS',
-		'SASS',
-		'TypeScript',
-		'Google Cloud',
+		'GSAP',
+		'GCP',
 		'Webflow',
-		'WordPress',
-		'Figma',
-		'Illustrator',
-		'Photoshop',
-		'Premiere Pro',
-		'After Effects'
+		'WordPress'
 	];
 </script>
 
@@ -50,14 +45,13 @@
 	ul {
 		display: flex;
 		flex-wrap: wrap;
-		max-width: 25rem;
+		max-width: 15rem;
 		gap: var(--spacing-fit);
 
 		& li {
 			border-radius: 0.25rem;
-			background: rgba(22, 19, 20, 0.6);
 			padding: 0.25rem 0.75rem;
-			color: var(--color-background);
+			border: 1px solid var(--color-text);
 		}
 	}
 </style>

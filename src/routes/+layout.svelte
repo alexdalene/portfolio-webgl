@@ -24,26 +24,6 @@
 			}
 		});
 
-		const links = gsap.utils.toArray('.link');
-
-		links.forEach((link) => {
-			const tl = gsap.timeline();
-
-			link.addEventListener('mouseenter', (e) => {
-				tl.play();
-
-				tl.to(link, {
-					duration: 0.2,
-					text: '[ ' + link.textContent + ' ]',
-					ease: 'none'
-				});
-			});
-
-			link.addEventListener('mouseleave', () => {
-				tl.reverse();
-			});
-		});
-
 		const buttons = gsap.utils.toArray('button');
 
 		buttons.forEach((button) => {
@@ -67,9 +47,9 @@
 	<p>© 2024</p>
 	<nav>
 		<ul>
-			<li><button><span class="link" data-link="arbeid">[ Arbeid ]</span></button></li>
-			<li><button><span class="link" data-link="ferdigheter">[ Ferdigheter ]</span></button></li>
-			<li><button><span class="link" data-link="kontakt">[ Kontakt ]</span></button></li>
+			<li><button><span class="link" data-link="arbeid">Arbeid</span></button></li>
+			<li><button><span class="link" data-link="ferdigheter">Ferdigheter</span></button></li>
+			<li><button><span class="link" data-link="kontakt">Kontakt</span></button></li>
 		</ul>
 	</nav>
 </header>
@@ -151,7 +131,7 @@
 		--spacing-compact: 0.625rem; /* 10px */
 		--spacing-fit: 0.3125rem; /* 5px */
 
-		--text-default: clamp(0.75rem, 2vw, 1rem);
+		--text-default: clamp(0.7rem, 2vw, 0.95rem);
 		--text-large: clamp(1rem, 2vw, 1.25rem);
 		--text-huge: clamp(2rem, 2vw, 2.5rem);
 	}

@@ -6,6 +6,8 @@
 	import gsap from 'gsap';
 	import TextPlugin from 'gsap/dist/TextPlugin';
 
+	import { Code, CircleArrowOutUpRight } from 'lucide-svelte';
+
 	export let type;
 	export let client;
 	export let href;
@@ -25,17 +27,11 @@
 		};
 	});
 
-	function handleMouseEnter(e) {
+	function handleMouseEnter() {
 		tl.play();
-
-		tl.to(e.target, {
-			duration: 0.2,
-			text: '[ VISIT ]',
-			ease: 'none'
-		});
 	}
 
-	function handleMouseLeave(e) {
+	function handleMouseLeave() {
 		tl.reverse();
 	}
 </script>
@@ -48,24 +44,12 @@
 	}}
 	on:mouseleave={() => (isHovered = false)}
 >
-	<p>{type}</p>
+	<p><Code size={16} />{type}</p>
 	<h3>{client}</h3>
 
 	<a {href} target="_blank" class:not-active={!href}>
-		<span>[ LIVE ]</span>
-		<svg
-			width="16"
-			height="16"
-			viewBox="0 0 16 16"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-			aria-hidden="true"
-		>
-			<path
-				d="M4.05001 12L3.20001 11.15L9.95001 4.4H4.00001V3.2H12V11.2H10.8V5.25L4.05001 12Z"
-				fill="currentColor"
-			/>
-		</svg>
+		<span>Besøk</span>
+		<CircleArrowOutUpRight size={16} />
 	</a>
 
 	{#if isHovered}
@@ -75,7 +59,7 @@
 			in:fade={{ duration: 200, easing: cubicOut }}
 			out:fade={{ duration: 200, easing: cubicIn }}
 		>
-			<p>{type}</p>
+			<p><Code size={16} /> {type}</p>
 			<h3>{client}</h3>
 
 			{#if href}
@@ -84,21 +68,9 @@
 						on:mouseenter={handleMouseEnter}
 						on:mouseleave={handleMouseLeave}
 						role="link"
-						tabindex="0">[ LIVE ]</span
+						tabindex="0">Besøk</span
 					>
-					<svg
-						width="16"
-						height="16"
-						viewBox="0 0 16 16"
-						fill="none"
-						xmlns="http://www.w3.org/2000/svg"
-						aria-hidden="true"
-					>
-						<path
-							d="M4.05001 12L3.20001 11.15L9.95001 4.4H4.00001V3.2H12V11.2H10.8V5.25L4.05001 12Z"
-							fill="currentColor"
-						/>
-					</svg>
+					<CircleArrowOutUpRight size={16} />
 				</a>
 			{/if}
 		</article>
@@ -118,6 +90,9 @@
 
 		& p {
 			grid-column: 1 / span 2;
+			display: flex;
+			align-items: center;
+			gap: var(--spacing-compact);
 		}
 
 		& h3 {

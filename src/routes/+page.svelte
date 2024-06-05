@@ -1,7 +1,6 @@
 <script>
 	import Arbeid from '$lib/components/Arbeid/Arbeid.svelte';
 	import Ferdigheter from '$lib/components/Ferdigheter/Ferdigheter.svelte';
-	import Statistikk from '$lib/components/Statistikk/Statistikk.svelte';
 	import Om from '$lib/components/Om/Om.svelte';
 	import Kontakt from '$lib/components/Kontakt/Kontakt.svelte';
 </script>
@@ -30,8 +29,6 @@
 	<Ferdigheter />
 
 	<div>
-		<Statistikk />
-
 		<Om />
 
 		<Kontakt />
