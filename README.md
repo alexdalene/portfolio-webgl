@@ -1,38 +1,42 @@
-# create-svelte
+# Portfolio
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+<img width="1470" alt="Screenshot 2024-06-15 at 13 52 15" src="https://github.com/alexdalene/portfolio-webgl/assets/111867370/eae8aeb4-2cc5-44e9-911f-5101d53117b3">
 
-## Creating a project
+## Description
 
-If you're seeing this, you've probably already done this step. Congrats!
+My portfolio, a project I did to learn three.js, which lets me use the canvas to make awesome animations, effects and objects.
+
+## Built With
+
+[![My Skills](https://skillicons.dev/icons?i=svelte,html,css,js,vite,threejs&perline=4)](https://skillicons.dev)
+
+
+## Getting Started
+
+### Installing
+
+1. Clone the repo:
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+git clone https://github.com/alexdalene/portfolio-webgl.git
 ```
 
-## Developing
+2. Install the dependencies:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+```
+npm install
+```
+
+### Running
+
+To run the app, run the following commands:
 
 ```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+## Contact
 
-To create a production version of your app:
+[My Twitter page](https://x.com/xenelad)
 
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+[My LinkedIn page](https://www.linkedin.com/in/alex-dalene/)
